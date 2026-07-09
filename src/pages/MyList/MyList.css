@@ -1,0 +1,116 @@
+.mylist {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #141414;
+}
+
+.mylist-content {
+    flex: 1;
+    padding: 120px 60px 60px;
+}
+
+.mylist-content h1 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #fff;
+}
+
+.mylist-status {
+    color: #aaa;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+/* Card grid — wraps onto new rows unlike the horizontal scroll in TitleCards */
+.mylist-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.mylist-card {
+    position: relative;
+    width: 240px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #1e1e1e;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mylist-card:hover {
+    transform: scale(1.04);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+}
+
+.mylist-card a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.mylist-card img {
+    width: 100%;
+    display: block;
+    border-radius: 6px 6px 0 0;
+}
+
+.mylist-card p {
+    padding: 8px 10px;
+    font-size: 13px;
+    color: #e5e5e5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mylist-placeholder {
+    width: 100%;
+    height: 135px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2a2a2a;
+    color: #aaa;
+    font-size: 13px;
+    padding: 8px;
+    text-align: center;
+}
+
+.mylist-remove {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0,0,0,0.7);
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease;
+}
+
+.mylist-remove:hover {
+    background: #e50914;
+}
+
+@media (max-width: 800px) {
+    .mylist-content {
+        padding: 100px 20px 40px;
+    }
+    .mylist-card {
+        width: 200px;
+    }
+}
+
+@media (max-width: 500px) {
+    .mylist-card {
+        width: 160px;
+    }
+}
