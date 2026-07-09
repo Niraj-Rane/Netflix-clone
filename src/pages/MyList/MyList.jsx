@@ -63,7 +63,7 @@ const MyList = () => {
         <div className="mylist-grid">
           {watchlist.map((item) => (
             <div className="mylist-card" key={item.docId}>
-              <Link to={`/player/${item.movieId}`} state={{ title: item.title }}>
+              <Link to={`/player/${item.movieId}`} state={{ title: item.title, mediaType: item.mediaType || 'movie' }}>
                 {item.poster
                   ? <img src={`https://image.tmdb.org/t/p/w500${item.poster}`} alt={item.title} />
                   : <div className="mylist-placeholder">{item.title}</div>

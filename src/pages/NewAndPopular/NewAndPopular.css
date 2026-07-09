@@ -1,0 +1,11 @@
+.new-popular-content{
+    padding: 80px 4% 40px;
+}
+.new-popular-content h1{
+    margin-bottom: 10px;
+}
+@media (max-width: 800px) {
+    .new-popular-content{
+        padding: 70px 4% 20px;
+    }
+}

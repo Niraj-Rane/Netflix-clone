@@ -6,42 +6,44 @@ Tracked issues and progress for this project, ordered by priority.
 
 ## 🚨 Security
 
-- [x] **Hardcoded TMDB Bearer token removed from source** — moved to `VITE_TMDB_ACCESS_KEY` in `.env` (git-ignored), read via `src/config.js`.
-- [x] **Firebase config moved to `.env`** — using a real personal Firebase project instead of the tutorial's shared demo project.
-- [x] **`.env.example` added** — safe template for anyone cloning the repo, no real secrets committed.
+- [x] Hardcoded TMDB Bearer token removed from source — moved to `VITE_TMDB_ACCESS_KEY` in `.env` (git-ignored), read via `src/config.js`.
+- [x] Firebase config moved to `.env` — using a real personal Firebase project instead of the tutorial's shared demo project.
+- [x] `.env.example` added — safe template for anyone cloning the repo, no real secrets committed.
 
 ## 🔴 Core Features
 
-- [x] **My List / watchlist** — fully implemented: bookmark button on cards and player page, backed by Firestore (`watchlist` collection), real-time updates via `onSnapshot`, remove functionality, empty/loading states.
-- [x] **Home nav link** wired to `/`.
-- [x] **My List nav link** wired to `/my-list`.
-- [x] **Hero "Play" button** now navigates to a real trailer (`/player/27205` — Inception).
-- [ ] **Search** — search icon in navbar still has no functionality. Needs a search input + TMDB `/search/movie` call + results view.
-- [ ] **TV Shows / Movies / New & Popular / Browse by Languages** nav links — still static text, not routed. (TV Shows would need TMDB's `/tv` endpoints, separate from the current `/movie` ones — bigger effort.)
+- [x] **My List / watchlist** — Firestore-backed, real-time updates, add/remove, works for both movies and TV shows.
+- [x] **Search** — type-ahead search in the navbar, debounced TMDB query, dropdown of results with poster + year, click to open player.
+- [x] **Nav links wired:**
+  - Home → `/`
+  - Movies → `/` (Home already shows movie categories exclusively)
+  - TV Shows → `/tv-shows` (new page, TMDB `/tv` endpoints — popular, top rated, airing today, on the air)
+  - New & Popular → `/new-popular` (new page — now playing, upcoming, trending, plus a TV row)
+  - My List → `/my-list`
+  - Browse by Languages → `/languages` (new page — language picker using TMDB `discover` with `with_original_language`)
+- [x] Hero "Play" button navigates to a real trailer.
 
 ## 🟡 Bugs — all fixed
 
-- [x] `Player.jsx` now uses `useLocation()` properly instead of the broken `props.location` (v5-style) pattern.
-- [x] Leftover debug code and placeholder `dataToPass` object removed from `TitleCards.jsx`.
+- [x] `Player.jsx` uses `useLocation()` properly instead of the broken `props.location` pattern.
+- [x] Leftover debug code / placeholder data removed.
+- [x] Folder typo fixed: `TitileCards` → `TitleCards` (and the one import updated).
+
+## 🟢 Polish
+
+- [x] **Loading states** — `TitleCards` shows "Loading titles…" while fetching; `Player` shows a loading placeholder before the trailer is ready.
+- [x] **User-facing error handling** — `TitleCards` shows a retry button on fetch failure instead of silently failing; `Player` shows "Couldn't load a trailer" instead of an empty/broken iframe.
+- [x] **Responsive pass on new pages** (TV Shows, New & Popular, Languages, search dropdown) — mobile breakpoints added matching the existing site conventions.
+- [ ] Broader responsive audit on the original tutorial pages (Home/Player) — they already ship with some breakpoints from the tutorial; worth a manual pass on a real phone before calling this fully done.
 
 ## 🟢 Infra / Architecture
 
-- [x] **TMDB requests proxied through Vite's dev server** (`vite.config.js` → `/api/tmdb`) — solves both the CORS issue and the local ISP-level blocking of `themoviedb.org` some networks in India enforce, since the actual outbound request now happens from the Node dev server, not the browser.
-- [ ] **Production equivalent of the proxy** — Vite's `server.proxy` only applies in `npm run dev`, not in the built production app. Before deploying (Vercel/Netlify), this needs an equivalent: a small serverless function (e.g. `/api/tmdb/[...path].js` on Vercel) that does the same server-side proxying with the token injected there instead of client-side.
-
-## Low Priority / Polish
-
-- [ ] Typo in folder name: `src/components/TitileCards/` → should be `TitleCards/` (cosmetic only, low priority).
-- [ ] Loading states while TMDB requests are in flight on Home/TitleCards.
-- [ ] User-facing error UI if a TMDB fetch fails (currently only `console.error`).
-- [ ] Responsive/mobile pass.
-- [ ] Deploy live (Vercel/Netlify) and add the link to `README.md`.
+- [x] TMDB requests proxied through Vite's dev server (`vite.config.js` → `/api/tmdb`) — solves CORS and local ISP-level blocking.
+- [ ] **Production equivalent of the proxy** — still needed before deploying. Vite's `server.proxy` only works in `npm run dev`; the built app will need a serverless function (Vercel/Netlify) doing the same job with the token injected server-side.
 
 ---
 
-## Suggested order of remaining work
-1. Production TMDB proxy (needed before deploying at all).
-2. Deploy live + add demo link to README.
-3. Search functionality.
-4. Remaining nav links.
-5. Polish items as time allows.
+## What's left
+1. **Deploy** — pick a host, add the production proxy, get a live demo link, add it to `README.md`.
+2. Optional: broader manual responsive/mobile testing pass.
+3. Optional stretch: language filter for TV shows too (currently movies only); genre-based filtering.

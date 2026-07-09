@@ -17,6 +17,19 @@
     aspect-ratio: 16/9;
     border-radius: 10px;
 }
+.player-status{
+    width: 80%;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #111;
+    border-radius: 10px;
+    color: #aaa;
+}
+.player-error{
+    color: #e87c03;
+}
 .player-info{
     display: flex;
     align-items: center;

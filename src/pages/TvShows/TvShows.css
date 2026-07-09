@@ -1,0 +1,11 @@
+.tv-shows-content{
+    padding: 80px 4% 40px;
+}
+.tv-shows-content h1{
+    margin-bottom: 10px;
+}
+@media (max-width: 800px) {
+    .tv-shows-content{
+        padding: 70px 4% 20px;
+    }
+}

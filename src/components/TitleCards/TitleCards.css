@@ -28,6 +28,42 @@
     text-decoration: none;
     color: #fff;
 }
+.card-no-image{
+    width: 240px;
+    height: 135px;
+    background: #222;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8px;
+    color: #aaa;
+    font-size: 13px;
+}
+.title-cards-status{
+    color: #aaa;
+    padding: 20px 0;
+}
+.title-cards-error{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #e87c03;
+}
+.retry-btn{
+    background: transparent;
+    border: 1px solid #e87c03;
+    color: #e87c03;
+    border-radius: 4px;
+    padding: 4px 12px;
+    cursor: pointer;
+    font-size: 13px;
+}
+.retry-btn:hover{
+    background: #e87c03;
+    color: #000;
+}
 .card-bookmark {
     position: absolute;
     top: 8px;
