@@ -23,9 +23,14 @@ export default async function handler(req, res) {
       },
     });
     const data = await tmdbRes.json();
+    // Prevent stale caching at the browser/CDN level — we want fresh
+    // movie data, and a bad response getting cached (like the one from
+    // the earlier rewrite bug) should never linger.
+    res.setHeader('Cache-Control', 'no-store');
     res.status(tmdbRes.status).json(data);
   } catch (err) {
     console.error('TMDB proxy error:', err);
+    res.setHeader('Cache-Control', 'no-store');
     res.status(502).json({ error: 'Failed to reach TMDB' });
   }
 }
