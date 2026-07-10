@@ -7,15 +7,7 @@ import profile_img from '../../assets/profile_img.png'
 import caret_icon from '../../assets/caret_icon.svg'
 import { logout } from '../../firebase'
 import { Link, useNavigate } from 'react-router-dom'
-import { TMDB_Access_Key } from '../../config'
-
-const options = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: `Bearer ${TMDB_Access_Key}`
-  }
-};
+import { tmdbUrl, tmdbFetchOptions } from '../../lib/tmdb'
 
 const Navbar = () => {
 
@@ -67,7 +59,7 @@ const Navbar = () => {
 
     setSearchStatus('loading');
     debounceRef.current = setTimeout(() => {
-      fetch(`/api/tmdb/search/movie?query=${encodeURIComponent(value)}&language=en-US&page=1`, options)
+      fetch(tmdbUrl('search/movie', { query: value, language: 'en-US', page: '1' }), tmdbFetchOptions)
         .then(res => {
           if (!res.ok) throw new Error('search failed');
           return res.json();

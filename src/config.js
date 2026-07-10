@@ -11,6 +11,10 @@ const firebaseConfig = {
     appId:             import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-const TMDB_Access_Key = import.meta.env.VITE_TMDB_ACCESS_KEY;
+// NOTE: the TMDB token is intentionally NOT exposed here anymore.
+// It's read server-side only — by api/tmdb.js in production, and by
+// vite.config.js's dev proxy locally — via VITE_TMDB_ACCESS_KEY /
+// TMDB_ACCESS_KEY. The browser calls our own /api/tmdb proxy and never
+// needs the real token. See src/lib/tmdb.js.
 
-export { firebaseConfig, TMDB_Access_Key };
+export { firebaseConfig };

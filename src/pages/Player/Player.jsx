@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './Player.css'
 import back_arrow_icon from '../../assets/back_arrow_icon.png'
 import { useNavigate, useParams, useLocation } from 'react-router-dom'
-import { TMDB_Access_Key } from '../../config'
+import { tmdbUrl, tmdbFetchOptions } from '../../lib/tmdb'
 import { db, auth } from '../../firebase'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { toast } from 'react-toastify'
@@ -26,17 +26,9 @@ const Player = () => {
   const [adding, setAdding] = useState(false);
   const [videoStatus, setVideoStatus] = useState('loading'); // loading | ready | error
 
-  const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: `Bearer ${TMDB_Access_Key}`
-    }
-  };
-
   useEffect(() => {
     setVideoStatus('loading');
-    fetch(`/api/tmdb/${mediaType}/${id}/videos?language=en-US`, options)
+    fetch(tmdbUrl(`${mediaType}/${id}/videos`, { language: 'en-US' }), tmdbFetchOptions)
       .then(response => {
         if (!response.ok) throw new Error(`Request failed (${response.status})`);
         return response.json();

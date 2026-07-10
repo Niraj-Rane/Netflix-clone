@@ -1,18 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './TitleCards.css'
 import { Link } from 'react-router-dom'
-import { TMDB_Access_Key } from '../../config'
+import { tmdbUrl, tmdbFetchOptions } from '../../lib/tmdb'
 import { db, auth } from '../../firebase'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { toast } from 'react-toastify'
-
-const options = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: `Bearer ${TMDB_Access_Key}`
-  }
-};
 
 /**
  * Reusable row of movie/TV cards.
@@ -41,8 +33,7 @@ const TitleCards = ({ title, mediaType = 'movie', category = 'popular', endpoint
   const load = () => {
     setStatus('loading');
     const basePath = endpointOverride || `${mediaType}/${category}`;
-    const joiner = basePath.includes('?') ? '&' : '?';
-    fetch(`/api/tmdb/${basePath}${joiner}language=en-US&page=1`, options)
+    fetch(tmdbUrl(basePath, { language: 'en-US', page: '1' }), tmdbFetchOptions)
       .then(response => {
         if (!response.ok) throw new Error(`TMDB request failed (${response.status})`);
         return response.json();

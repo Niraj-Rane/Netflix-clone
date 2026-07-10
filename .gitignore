@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Old bracket-based function, replaced by api/tmdb.js (kept locally, not needed in repo)
+_deprecated_tmdb_bracket_fn/
+
 # Environment variables — never commit real secrets
 .env
 .env.local
